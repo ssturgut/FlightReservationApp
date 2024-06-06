@@ -1,0 +1,104 @@
+﻿@model List<FlightApp.Application.Dtos.ReservationViewDto>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Reservations</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333; /* Tüm yazılar siyah */
+        }
+
+        .reservations-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            background-size: cover;
+        }
+
+        .reservations-card {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+        }
+
+            .reservations-card h2 {
+                text-align: center;
+                margin-bottom: 20px;
+                color: black; /* Başlık yazısı siyah */
+            }
+
+        .reservations-table {
+            width: 100%;
+            border-collapse: collapse;
+            color: black; /* Tablo yazıları siyah */
+        }
+
+            .reservations-table th, .reservations-table td {
+                padding: 10px;
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+
+            .reservations-table th {
+                background-color: #f2f2f2;
+            }
+
+            .reservations-table td form {
+                margin: 0;
+            }
+
+            .reservations-table td button {
+                padding: 5px 10px;
+                background-color: white; /* Buton yazıları siyah */
+                color: black;
+                border: 1px solid #007bff;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+    </style>
+</head>
+<body>
+    <div class="reservations-container">
+        <div class="reservations-card">
+            <h2>Your Reservations</h2>
+            <table class="reservations-table">
+                <thead>
+                    <tr>
+                        <th>Flight IATA</th>
+                        <th>Date</th>
+                        <th>Departure</th>
+                        <th>Arrival</th>
+                        <th>Seats</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var reservation in Model)
+                    {
+                        <tr>
+                            <td>@reservation.FlightIata</td>
+                            <td>@reservation.BookingDate</td>
+                            <td>@reservation.DepartureAirport</td>
+                            <td>@reservation.ArrivalAirport</td>
+                            <td>@reservation.NumberOfSeats</td>
+                            <td>
+                                <form asp-action="CancelReservation" method="post">
+                                    <input type="hidden" name="reservationId" value="@reservation.Id" />
+                                    <button type="submit" class="btn btn-outline-danger">Cancel</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

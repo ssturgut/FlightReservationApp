@@ -1,0 +1,114 @@
+﻿
+
+@model FlightApp.Application.Dtos.LoginViewDto
+@{
+    ViewData["Title"] = "Login";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 50px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-size: cover;
+            height: 80vh;
+        }
+
+        .login-form {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 50%;
+        }
+
+            .login-form h2 {
+                margin-bottom: 20px;
+            }
+
+            .login-form label {
+                display: block;
+                margin: 10px 0 5px;
+                color: #666;
+            }
+
+            .login-form input {
+                width: 100%;
+                padding: 8px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            .login-form button {
+                width: 100%;
+                padding: 10px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+                .login-form button:hover {
+                    background-color: #0056b3;
+                }
+
+        .left-column {
+            padding: 10px;
+            margin-right: 50px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start; /* Sola yaslama */
+        }
+
+            .left-column h2 {
+                margin-bottom: 20px;
+                color: white;
+                font-size: 2em; /* Metin boyutunu büyütme */
+            }
+
+            .left-column p {
+                font-size: 1.2em; /* Metin boyutunu büyütme */
+            }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="left-column">
+            <h2>Beyond the Borders</h2>
+            <p>Experience the skies like never before with Fly Boarding, <br>where your journey is our passion.</p>
+        </div>
+        <div class="login-form">
+            <h2>Login</h2>
+            <form method="post" asp-action="Login">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="Email" required />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="Password" required />
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

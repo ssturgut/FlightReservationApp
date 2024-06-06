@@ -1,0 +1,35 @@
+﻿@model FlightApp.Domain.Entities.Product
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Product</title>
+    <link rel="stylesheet" href="~/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Create Product</h1>
+        <form asp-action="Create" method="post">
+            <div>
+                <label>Name</label>
+                <input type="text" asp-for="Name" />
+            </div>
+            <div>
+                <label>Value</label>
+                <input type="number" asp-for="Value" />
+            </div>
+            <div>
+                <label>Quantity</label>
+                <input type="number" asp-for="Quantity" />
+            </div>
+            <div>
+                <label>Create Date</label>
+                <input type="date" asp-for="CreateDate" />
+            </div>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</body>
+</html>

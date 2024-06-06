@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Exceptions\" />
+    <None Remove="Mapping\" />
+    <None Remove="Wrappers\" />
+    <None Remove="Interfaces\" />
+    <None Remove="Interfaces\Repository\" />
+    <None Remove="Parameters\" />
+    <None Remove="Features\" />
+    <None Remove="Features\Commands\" />
+    <None Remove="Features\Queries\" />
+    <None Remove="Features\Queries\GetAllProducts\" />
+    <None Remove="Dtos\" />
+    <None Remove="Features\Commands\CreateProduct\" />
+    <None Remove="Features\Queries\GetProductById\" />
+    <None Remove="Settings\" />
+    <None Remove="Features\Queries\GetAllFlights\" />
+    <None Remove="Features\Commands\LoginCommands\" />
+    <None Remove="ViewModels\" />
+    <None Remove="Features\Commands\ReservationCommands\" />
+    <None Remove="Features\Queries\MatchFlights\" />
+    <None Remove="Features\Queries\ReservationQueries\" />
+    <None Remove="Interfaces\Factory\" />
+    <None Remove="Interfaces\Adapter\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
+    <Folder Include="Mapping\" />
+    <Folder Include="Wrappers\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Interfaces\Repository\" />
+    <Folder Include="Parameters\" />
+    <Folder Include="Features\" />
+    <Folder Include="Features\Commands\" />
+    <Folder Include="Features\Queries\" />
+    <Folder Include="Features\Queries\GetAllProducts\" />
+    <Folder Include="Dtos\" />
+    <Folder Include="Features\Commands\CreateProduct\" />
+    <Folder Include="Features\Queries\GetProductById\" />
+    <Folder Include="Settings\" />
+    <Folder Include="Features\Queries\GetAllFlights\" />
+    <Folder Include="Features\Commands\LoginCommands\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Features\Commands\ReservationCommands\" />
+    <Folder Include="Features\Queries\MatchFlights\" />
+    <Folder Include="Features\Queries\ReservationQueries\" />
+    <Folder Include="Interfaces\Factory\" />
+    <Folder Include="Interfaces\Adapter\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FlightApp.Domain\FlightApp.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+  </ItemGroup>
+</Project>

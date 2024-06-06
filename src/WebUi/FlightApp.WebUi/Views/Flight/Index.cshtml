@@ -1,0 +1,34 @@
+﻿@model List<FlightApp.Application.Dtos.FlightViewDto>
+
+@{
+    ViewData["Title"] = "Flights";
+}
+
+<div class="container">
+    <h2>Flights</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Flight Date</th>
+                <th>Flight Status</th>
+                <th>Departure Airport</th>
+                <th>Arrival Airport</th>
+                <th>Airline</th>
+                <th>Flight Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var flight in Model)
+            {
+                <tr>
+                    <td>@flight.FlightDate</td>
+                    <td>@flight.FlightStatus</td>
+                    <td>@flight.DepartureAirport</td>
+                    <td>@flight.ArrivalAirport</td>
+                    <td>@flight.AirLine</td>
+                    <td>@flight.FlightNumberIata</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

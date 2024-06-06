@@ -1,0 +1,43 @@
+﻿@page
+@model FlightApp.Application.Dtos.FlightViewDto
+@{
+    ViewData["Title"] = "Book Your Flight";
+}
+<div class="container">
+    <h2>Book Your Flight Today</h2>
+    <form method="post">
+        <div class="form-group">
+            <label>Flying From</label>
+            <input type="text" class="form-control" name="flyingFrom" />
+        </div>
+        <div class="form-group">
+            <label>Flying To</label>
+            <input type="text" class="form-control" name="flyingTo" />
+        </div>
+        <div class="form-group">
+            <label>Departing</label>
+            <input type="date" class="form-control" name="departing" />
+        </div>
+        <div class="form-group">
+            <label>Returning</label>
+            <input type="date" class="form-control" name="returning" />
+        </div>
+        <div class="form-group">
+            <label>Adults</label>
+            <input type="number" class="form-control" name="adults" value="1" />
+        </div>
+        <div class="form-group">
+            <label>Children</label>
+            <input type="number" class="form-control" name="children" value="0" />
+        </div>
+        <div class="form-group">
+            <label>Travel Class</label>
+            <select class="form-control" name="travelClass">
+                <option>Economy class</option>
+                <option>Business class</option>
+                <option>First class</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Show Flights</button>
+    </form>
+</div>

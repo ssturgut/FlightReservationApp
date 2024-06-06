@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\FlightApp.Persistence\FlightApp.Persistence.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\FlightApp.Application\FlightApp.Application.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebApi\FlightApp.WebApi\FlightApp.WebApi.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Views\Product\" />
+    <None Remove="Views\Flight\" />
+    <None Remove="Views\Login\" />
+    <None Remove="Views\Booking\" />
+    <None Remove="Views\Reservations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Product\" />
+    <Folder Include="Views\Flight\" />
+    <Folder Include="Views\Login\" />
+    <Folder Include="Views\Booking\" />
+    <Folder Include="wwwroot\animations\" />
+    <Folder Include="Views\Reservations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\Assets\background.jpg" />
+    <Content Remove="wwwroot\animations\" />
+  </ItemGroup>
+</Project>

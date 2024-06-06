@@ -1,0 +1,287 @@
+﻿
+@model FlightApp.Application.ViewModels.BookingViewModel
+@{
+    ViewBag.Title = "Booking";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .booking-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 50px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-size: cover;
+            height: 80vh;
+        }
+
+        .booking-form {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 50%;
+        }
+
+            .booking-form h2 {
+                margin-bottom: 20px;
+            }
+
+            .booking-form label {
+                display: block;
+                margin: 10px 0 5px;
+                color: #666;
+            }
+
+            .booking-form input, .booking-form select {
+                width: 100%;
+                padding: 8px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            .booking-form button {
+                width: 100%;
+                padding: 10px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+        .trip-type {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            white-space: nowrap;
+        }
+
+            .trip-type label {
+                display: flex;
+                align-items: center;
+                margin: 0px;
+                color: #666;
+            }
+
+            .trip-type input {
+                margin-top: 10px;
+            }
+
+            .trip-type label input {
+                margin-right: 10px;
+                vertical-align: middle;
+            }
+
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .input-group {
+            flex: 1;
+            margin-right: 15px;
+        }
+
+            .input-group:last-child {
+                margin-right: 0;
+            }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader {
+            width: 50%;
+            height: 50%;
+            background: url('/animations/loading.gif') no-repeat center center;
+            background-size: contain position: absolute;
+            top: 60%;
+            transform: translateY(70%);
+        }
+
+        .error-message {
+            display: none;
+            color: red;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay" id="overlay">
+        <div class="loader"></div>
+    </div>
+    <div class="booking-container">
+        <div>
+            <h1>Book your flight today,</h1>
+            <p>feel the freedom beyond the borders.</p>
+        </div>
+        <div class="booking-form">
+            <h2>Search for a Flight</h2>
+            <form asp-action="SearchFlights" method="post">
+                <div class="trip-type">
+                    <label for="roundtrip">
+                        <input type="radio" id="roundtrip" name="TripType" value="Roundtrip" checked> Round trip
+                    </label>
+                    <label for="oneway">
+                        <input type="radio" id="oneway" name="TripType" value="One way"> One way
+                    </label>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="flyingfrom">Flying From</label>
+                        <select id="flyingfrom" name="FlyingFrom" required>
+                            <option value="">Select departure</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="flyingto">Flying To</label>
+                        <select id="flyingto" name="FlyingTo" required>
+                            <option value="">Select destination</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="departing">Departing</label>
+                        <input type="date" id="departing" name="Departing" min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="returning">Returning</label>
+                        <input type="date" id="returning" name="Returning" min="@DateTime.Now.ToString("yyyy-MM-dd")">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="adults">Adults (18+)</label>
+                        <input type="number" id="adults" name="Adults" value="1" min="1" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="children">Children (0-17)</label>
+                        <input type="number" id="children" name="Children" value="0" min="0">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="travelclass">Travel Class</label>
+                        <select id="travelclass" name="TravelClass">
+                            <option value="Economy" selected>Economy class</option>
+                            <option value="Business">Business class</option>
+                            <option value="First">First class</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit">Show Flights</button>
+            </form>
+            <div class="error-message" id="error-message">Flight service currently unavailable. Please try again later.</div>
+        </div>
+    </div>
+
+    <script>document.addEventListener('DOMContentLoaded', async (event) => {
+            // Sayfa yüklendiğinde tarih alanlarını boş bırak
+            document.getElementById('departing').value = '';
+            document.getElementById('returning').value = '';
+
+            const tripTypeRadios = document.getElementsByName('TripType');
+            const returningInput = document.getElementById('returning');
+            const overlay = document.getElementById('overlay');
+            const fromSelect = document.getElementById('flyingfrom');
+            const toSelect = document.getElementById('flyingto');
+            const errorMessage = document.getElementById('error-message');
+
+            tripTypeRadios.forEach(radio => {
+                radio.addEventListener('change', function () {
+                    if (this.value === 'Roundtrip') {
+                        returningInput.disabled = false;
+                    } else {
+                        returningInput.disabled = true;
+                        returningInput.value = ''; // Roundtrip dışında bir şey seçildiğinde değeri temizle
+                    }
+                });
+            });
+
+            // Sayfa yüklendiğinde Roundtrip seçiliyse Returning input'unu aktif hale getir
+            if (document.getElementById('roundtrip').checked) {
+                returningInput.disabled = false;
+            }
+
+            const departingInput = document.getElementById('departing');
+
+            departingInput.addEventListener('change', function () {
+                const minReturningDate = departingInput.value;
+                returningInput.setAttribute('min', minReturningDate);
+            });
+
+            // Uçuş verilerini API'den al ve dropdownları güncelle
+            overlay.style.display = 'flex'; // Loader'ı göster
+            try {
+                const response = await fetch('/Booking/GetFlights');
+                const flights = await response.json();
+                overlay.style.display = 'none'; // Loader'ı gizle
+
+                const uniqueFromLocations = [...new Set(flights.map(f => f.departureAirport))];
+
+                uniqueFromLocations.forEach(location => {
+                    const option = document.createElement('option');
+                    option.value = location;
+                    option.textContent = location;
+                    fromSelect.appendChild(option);
+                });
+
+                fromSelect.addEventListener('change', function () {
+                    const fromValue = this.value;
+                    toSelect.innerHTML = '<option value="">Select destination</option>'; // Mevcut seçenekleri temizle
+
+                    const destinations = flights.filter(f => f.departureAirport === fromValue)
+                        .map(f => f.arrivalAirport);
+                    const uniqueToLocations = [...new Set(destinations)];
+
+                    uniqueToLocations.forEach(location => {
+                        const option = document.createElement('option');
+                        option.value = location;
+                        option.textContent = location;
+                        toSelect.appendChild(option);
+                    });
+                });
+            } catch (error) {
+                console.error('Uçuş verilerini yüklerken bir hata oluştu:', error);
+                overlay.style.display = 'none'; // Loader'ı gizle
+                errorMessage.style.display = 'block'; // Hata mesajını göster
+                setTimeout(() => {
+                    errorMessage.style.display = 'none'; // Hata mesajını 3 saniye sonra gizle
+                }, 5000);
+            }
+        });</script>
+</body>
+</html>
